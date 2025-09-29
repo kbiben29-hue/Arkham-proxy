@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: arkhamdb-proxy
+    env: python
+    buildCommand: ""
+    startCommand: "python arkhamdb_proxy_flask_app.py"
