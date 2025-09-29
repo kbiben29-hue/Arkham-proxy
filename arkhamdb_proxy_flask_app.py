@@ -30,5 +30,12 @@ def get_taboos():
 def status():
     return jsonify({"status": "ArkhamDB proxy is running!"})
 
+# ✅ New root route
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({
+        "message": "Arkham Proxy is live! Use /status, /cards, /cards/<pack_code>, or /taboos."
+    })
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
