@@ -103,6 +103,3 @@ def get_deck(deck_id):
 # --- Main entrypoint ---
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
-rned by ArkhamDB"}), 502
-
-    return response.text, 200, {"Content-Type": "text/plain; charset=utf-8"}
