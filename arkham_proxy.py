@@ -56,14 +56,15 @@ def get_deck(deck_id):
     """
     Fetch a community deck from ArkhamDB and return it as plain text or JSON.
     Example:
-      /deck/53986              → plain text export
-      /deck/53986?format=json  → JSON export
+      /deck/57391              → plain text export
+      /deck/57391?format=json  → JSON export
     """
     export_format = request.args.get("format", "plain")  # "plain" or "json"
     if export_format not in ["plain", "json"]:
         return jsonify({"error": "Invalid format. Use 'plain' or 'json'."}), 400
 
-    url = f"https://arkhamdb.com/decklist/export/{export_format}/{deck_id}"
+    # ✅ Corrected endpoint for ArkhamDB exports
+    url = f"https://arkhamdb.com/deck/export/{export_format}/{deck_id}"
 
     try:
         response = requests.get(url, timeout=10)
