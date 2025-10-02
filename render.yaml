@@ -1,5 +1,7 @@
-arkham_proxy/
- ├── app.py              
- ├── requirements.txt
- ├── render.yaml
- └── Procfile         
+services:
+  - type: web
+    name: arkham-proxy
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: "python app.py"
