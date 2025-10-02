@@ -1,6 +1,3 @@
-services:
-  - type: web
-    name: arkham-proxy
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn arkham_proxy:app
+flask==3.0.3
+requests==2.32.3
+gunicorn==23.0.0
