@@ -1,3 +1,5 @@
-Arkham-proxy/
-  ├── arkham_proxy.py         # your Flask app
-  ├── requirements.txt        # dependencies
+arkhamdb-proxy/
+│
+├── app.py
+├── requirements.txt
+└── Procfile
