@@ -1,29 +1,25 @@
-from flask import Flask, Response
+from flask import Flask, request, jsonify
 import requests
+import os
 
 app = Flask(__name__)
 
-# Replace this with your real cookie from Safari DevTools
-COOKIE = {"PHPSESSID": "your_cookie_here"}
+# pull ArkhamDB session cookie from environment variables
+ARKHAM_COOKIE = os.getenv("ARKHAM_COOKIE")
 
 @app.route("/")
 def home():
-    return {"status": "ArkhamDB proxy is running!"}
+    return {"status": "Arkham Proxy is running"}
 
-@app.route("/cards")
-def cards():
-    url = "https://arkhamdb.com/api/public/cards/"
-    r = requests.get(url, cookies=COOKIE)
-    return Response(r.content, status=r.status_code, content_type=r.headers["content-type"])
+@app.route("/fetch")
+def fetch():
+    url = request.args.get("url")
+    if not url:
+        return {"error": "No URL provided"}, 400
 
-@app.route("/taboos")
-def taboos():
-    url = "https://arkhamdb.com/api/public/taboos/"
-    r = requests.get(url, cookies=COOKIE)
-    return Response(r.content, status=r.status_code, content_type=r.headers["content-type"])
+    headers = {}
+    if ARKHAM_COOKIE:
+        headers["Cookie"] = f"PHPSESSID={ARKHAM_COOKIE}"
 
-@app.route("/deck/<deck_id>")
-def deck(deck_id):
-    url = f"https://arkhamdb.com/decklist/view/{deck_id}"
-    r = requests.get(url, cookies=COOKIE)
-    return Response(r.content, status=r.status_code, content_type=r.headers["content-type"])
+    resp = requests.get(url, headers=headers)
+    return resp.text, resp.status_code, {"Content-Type": resp.headers.get("Content-Type", "text/plain")}
